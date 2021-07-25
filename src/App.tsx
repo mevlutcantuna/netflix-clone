@@ -9,7 +9,7 @@ import { useHistory } from "react-router-dom";
 
 const App: React.FC = () => {
   const history = useHistory();
-  const user = localStorage.getItem("userName");
+  const user = localStorage.getItem("user");
 
   useEffect(() => {
     if (user !== null) {

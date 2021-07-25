@@ -3,6 +3,9 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import firebase from "../../firebase";
 import { useHistory } from "react-router-dom";
+import { userType } from "../../types/userType";
+import { useDispatch } from "react-redux";
+import { saveUser } from "../../redux/actions/user";
 
 const StyledMain = styled.div`
   width: 25rem;
@@ -62,6 +65,7 @@ const SignIn: React.FC<Props> = ({ changeHaveAccount }) => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -82,7 +86,18 @@ const SignIn: React.FC<Props> = ({ changeHaveAccount }) => {
       photoUrl,
     });
 
-    localStorage.setItem("userName", user);
+    localStorage.setItem("user", user);
+  };
+
+  const saveUserToStore = ({
+    display,
+    email,
+    photoURL,
+    refreshToken,
+    uid,
+  }: userType) => {
+    const user = { display, email, photoURL, refreshToken, uid };
+    dispatch(saveUser(user));
   };
 
   const singIn = (e: React.MouseEvent<HTMLFormElement>) => {
@@ -97,6 +112,13 @@ const SignIn: React.FC<Props> = ({ changeHaveAccount }) => {
             res.user?.email?.toLowerCase(),
             res.user?.photoURL?.toString()
           );
+          saveUserToStore({
+            display: res.user?.displayName,
+            email: res.user?.email,
+            photoURL: res.user?.photoURL,
+            refreshToken: res.user?.refreshToken,
+            uid: res.user?.uid,
+          });
           history.push("/browser");
         })
         .catch((err) => alert(err));
