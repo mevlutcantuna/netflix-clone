@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-import Image from "../../assets/auth-bg.jpg";
-import NetflixLogo from "../../assets/Netflix_2015_logo.svg";
+import Image from "../assets/auth-bg.jpg";
+import NetflixLogo from "../assets/Netflix_2015_logo.svg";
 import styled from "styled-components";
-import SignIn from "./SignIn";
-import SignUp from "./SignUp";
+import SignIn from "../components/auth/SignIn";
+import SignUp from "../components/auth/SignUp";
 
 const StyledMain = styled.div`
   display: flex;
@@ -43,7 +43,7 @@ const StyledNavbar = styled.div`
   }
 `;
 
-const AuthPage: React.FC = () => {
+const Auth: React.FC = () => {
   const [haveAccount, setHaveAccount] = useState<boolean>(false);
 
   const changeHaveAccount = () => {
@@ -71,4 +71,4 @@ const AuthPage: React.FC = () => {
   );
 };
 
-export default AuthPage;
+export default Auth;

@@ -106,8 +106,6 @@ const Navbar: React.FC = () => {
     setIsModalOpen(situation);
   };
 
-  console.log(isModalOpen);
-
   useEffect(() => {
     getProfilePhoto();
     focusSearch();

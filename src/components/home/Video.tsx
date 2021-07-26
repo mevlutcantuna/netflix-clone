@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import instance from "../../axios";
+import requests from "../../requests";
 
 const Video: React.FC = () => {
-  const [video, setVideo] = useState<string>();
+  const [video, setVideo] = useState();
 
   useEffect(() => {
     //url must be change
-    axios.get(
-      "https://image.tmdb.org/t/p?api_key=644c8949ded7d68ea2417f06b191df75"
-    );
   }, []);
   return <></>;
 };

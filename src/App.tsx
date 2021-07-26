@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
 
-import AuthPage from "./components/auth";
-import SearchPage from "./components/search";
-import MainPage from "./components/main";
-
+import Auth from "./pages/Auth";
 import { Route } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import Home from "./pages/Home";
+import Search from "./pages/Search";
 
 const App: React.FC = () => {
   const history = useHistory();
@@ -21,9 +20,9 @@ const App: React.FC = () => {
 
   return (
     <>
-      <Route exact path="/" component={AuthPage} />
-      <Route exact path="/browser" component={MainPage} />
-      <Route exact path="/search" component={SearchPage} />
+      <Route exact path="/" component={Auth} />
+      <Route exact path="/browser" component={Home} />
+      <Route exact path="/search" component={Search} />
     </>
   );
 };
