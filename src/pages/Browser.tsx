@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/navbar";
-import Home from "./Home";
-import Search from "./Search";
+import Home from "../components/home/Home";
+import Search from "../components/search/Search";
 
 const Browser: React.FC = () => {
   const [isSearching, setIsSearching] = useState<boolean>(false);
@@ -21,8 +21,12 @@ const Browser: React.FC = () => {
 
   return (
     <>
-      <Navbar search={search} handleChangeSearch={handleChangeSearch} />
-      {!isSearching ? <Home /> : <Search />}
+      <Navbar
+        search={search}
+        setSearch={setSearch}
+        handleChangeSearch={handleChangeSearch}
+      />
+      {!isSearching ? <Home /> : <Search search={search} />}
     </>
   );
 };

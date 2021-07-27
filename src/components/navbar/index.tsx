@@ -83,9 +83,10 @@ const StyledNavbar = styled.div`
 interface Props {
   search: string;
   handleChangeSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const Navbar: React.FC<Props> = ({ search, handleChangeSearch }) => {
+const Navbar: React.FC<Props> = ({ search, handleChangeSearch, setSearch }) => {
   const [profile, setProfile] = useState<string>("");
   const [isOpenSearch, setIsOpenSearch] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -122,11 +123,18 @@ const Navbar: React.FC<Props> = ({ search, handleChangeSearch }) => {
     });
   };
 
+  const inputBarConstant = () => {
+    if (search.trim() !== "") {
+      setIsOpenSearch(true);
+    }
+  };
+
   useEffect(() => {
     getProfilePhoto();
     changeScrollColor();
     focusSearch();
-  }, [isOpenSearch]);
+    inputBarConstant();
+  }, [isOpenSearch, search]);
 
   return (
     // @ts-ignore
@@ -134,7 +142,7 @@ const Navbar: React.FC<Props> = ({ search, handleChangeSearch }) => {
       <StyledLeftSide>
         <img alt="netflix" src={NetflixLogo} />
         <StyledList>
-          <li>Home</li>
+          <li onClick={() => setSearch("")}>Home</li>
           <li>Series</li>
           <li>Movies</li>
           <li>New and Popular</li>

@@ -1,8 +1,8 @@
 import React from "react";
 
-import Video from "../components/home/Video";
-import MovieRow from "../components/home/MovieRow";
-import requests from "../requests";
+import Video from "./Video";
+import MovieRow from "./MovieRow";
+import requests from "../../requests";
 
 const Home: React.FC = () => {
   return (

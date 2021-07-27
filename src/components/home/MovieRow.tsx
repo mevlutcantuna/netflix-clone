@@ -11,8 +11,6 @@ interface Props {
   fetchUrl: string;
 }
 
-const StyledMain = styled.div``;
-
 const StyledTitle = styled.div`
   font-size: 1.75rem;
   font-weight: bold;
@@ -65,7 +63,7 @@ const MovieRow: React.FC<Props> = ({ title, fetchUrl }) => {
   }, [fetchUrl]);
 
   return (
-    <StyledMain>
+    <>
       <StyledTitle>{title}</StyledTitle>
       <StyledMovies>
         {data?.results.map((item: MovieResult) => (
@@ -88,7 +86,7 @@ const MovieRow: React.FC<Props> = ({ title, fetchUrl }) => {
         ))}
       </StyledMovies>
       <TrailerModal id={id} isOpenModal={isOpenModal} closeModal={closeModal} />
-    </StyledMain>
+    </>
   );
 };
 
