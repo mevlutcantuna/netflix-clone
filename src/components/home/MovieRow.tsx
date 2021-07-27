@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
+
 import instance from "../../axios";
 import { MovieTypes } from "../../types/movieTypes";
 import { MovieResult } from "../../types/movieTypes";
 import styled from "styled-components";
+import TrailerModal from "../trailerModal";
 
 interface Props {
   title: string;
-  request: string;
-  largeRow?: boolean;
+  fetchUrl: string;
 }
 
 const StyledMain = styled.div``;
@@ -15,41 +16,82 @@ const StyledMain = styled.div``;
 const StyledTitle = styled.div`
   font-size: 1.75rem;
   font-weight: bold;
+  margin-left: 1rem;
+  margin-top: 1rem;
+  color: white;
 `;
 
 const StyledMovies = styled.div`
-  overflow-x: auto;
   display: flex;
+  overflow-x: scroll;
+  overflow-y: hidden;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const StyledImage = styled.img`
-  object-fit: contain;
-  width: 8rem;
-  padding: 20px;
+  width: 15rem;
+  height: 9rem;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  transition: transform 450ms;
+  cursor: pointer;
+  :hover {
+    transform: scale(1.3);
+  }
 `;
 
 const baseURL = "https://image.tmdb.org/t/p/original/";
 
-const MovieRow: React.FC<Props> = ({ title, request }) => {
+const MovieRow: React.FC<Props> = ({ title, fetchUrl }) => {
   const [data, setData] = useState<MovieTypes>();
-  console.log(data);
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+  const [path, setPath] = useState<number>(45);
+  console.log(path);
+
+  const openModal = (id: number) => {
+    setPath(id);
+    setIsOpenModal(true);
+  };
+  const closeModal = () => setIsOpenModal(false);
+
   useEffect(() => {
     instance
-      .get(request)
+      .get(fetchUrl)
       .then((res) => setData(res.data))
       .catch((err) => console.log(err));
-  }, []);
+  }, [fetchUrl]);
 
   return (
     <StyledMain>
       <StyledTitle>{title}</StyledTitle>
       <StyledMovies>
         {data?.results.map((item: MovieResult) => (
-          <div key={item.id}>
-            <StyledImage alt={item.name} src={baseURL + item.poster_path} />
+          <div
+            key={item.id}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              height: "12rem",
+              padding: "0 0.5rem",
+            }}
+          >
+            <StyledImage
+              onClick={() => openModal(item.id)}
+              alt={item.name}
+              src={baseURL + item.poster_path}
+            />
           </div>
         ))}
       </StyledMovies>
+      <TrailerModal
+        path={path}
+        isOpenModal={isOpenModal}
+        closeModal={closeModal}
+      />
     </StyledMain>
   );
 };

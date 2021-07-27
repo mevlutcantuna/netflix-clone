@@ -12,15 +12,14 @@ const Home: React.FC = () => {
       <Video />
       <MovieRow
         title="Netflix Originals"
-        request={requests.fetchNetflixOriginals}
-        largeRow={true}
+        fetchUrl={requests.fetchNetflixOriginals}
       />
-      <MovieRow title="Trends" request={requests.fetchTrending} />
-      <MovieRow title="Top Rated" request={requests.fetchTopRated} />
-      <MovieRow title="Action Movies" request={requests.fetchActionMovies} />
-      <MovieRow title="Comedy Movies" request={requests.fetchComedyMovies} />
-      <MovieRow title="Horror Movies" request={requests.fetchHorrorMovies} />
-      <MovieRow title="Documentaries" request={requests.fetchDocumentaries} />
+      <MovieRow title="Trends" fetchUrl={requests.fetchTrending} />
+      <MovieRow title="Top Rated" fetchUrl={requests.fetchTopRated} />
+      <MovieRow title="Action Movies" fetchUrl={requests.fetchActionMovies} />
+      <MovieRow title="Comedy Movies" fetchUrl={requests.fetchComedyMovies} />
+      <MovieRow title="Horror Movies" fetchUrl={requests.fetchHorrorMovies} />
+      <MovieRow title="Documentaries" fetchUrl={requests.fetchDocumentaries} />
     </>
   );
 };

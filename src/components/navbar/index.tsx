@@ -4,18 +4,7 @@ import styled from "styled-components";
 import NetflixLogo from "../../assets/Netflix_2015_logo.svg";
 import Ring from "../../assets/notifications_white_24dp.svg";
 import SearchIcon from "../../assets/search_white_24dp.svg";
-import Modal from "./Modal";
-
-const StyledNavbar = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 4.5rem;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1));
-  padding-left: 4rem;
-  padding-right: 4rem;
-  z-index: 20;
-`;
+import NavbarModal from "./NavbarModal";
 
 const StyledLeftSide = styled.div`
   display: flex;
@@ -82,7 +71,22 @@ const Navbar: React.FC = () => {
   const [profile, setProfile] = useState<string>("");
   const [isOpenSearch, setIsOpenSearch] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [show, setShow] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const StyledNavbar = styled.div`
+    width: 100%;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 4.5rem;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1));
+    padding-left: 4rem;
+    padding-right: 4rem;
+    z-index: 20;
+    ${() => show && `background: #111;`}
+  `;
 
   const getProfilePhoto = () => {
     let localProfile = localStorage.getItem("user");
@@ -106,10 +110,19 @@ const Navbar: React.FC = () => {
     setIsModalOpen(situation);
   };
 
+  const changeScrollColor = () => {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 100) {
+        return setShow(true);
+      } else return setShow(false);
+    });
+  };
+
   useEffect(() => {
     getProfilePhoto();
     focusSearch();
-  }, [focusSearch]);
+    changeScrollColor();
+  }, []);
 
   return (
     <StyledNavbar>
@@ -148,7 +161,7 @@ const Navbar: React.FC = () => {
           alt="profile"
           src={profile}
         />
-        {isModalOpen && <Modal changeModal={changeModal} />}
+        {isModalOpen && <NavbarModal changeModal={changeModal} />}
       </StyledRightSide>
     </StyledNavbar>
   );

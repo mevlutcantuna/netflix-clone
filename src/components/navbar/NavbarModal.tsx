@@ -14,12 +14,12 @@ const StyledModal = styled.div`
   background-color: black;
   color: white;
   border-radius: 0.25rem;
-  border: 1px white solid;
+  border: 0.25px black solid;
   padding: 0.5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-
+  z-index: 100;
   div {
     display: flex;
     align-items: center;
@@ -35,7 +35,7 @@ interface Props {
   changeModal: (situation: boolean) => void;
 }
 
-const Modal: React.FC<Props> = ({ changeModal }) => {
+const NavbarModal: React.FC<Props> = ({ changeModal }) => {
   const [profile, setProfile] = useState<string>("");
   const history = useHistory();
 
@@ -74,4 +74,4 @@ const Modal: React.FC<Props> = ({ changeModal }) => {
   );
 };
 
-export default Modal;
+export default NavbarModal;
