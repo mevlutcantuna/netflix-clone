@@ -4,7 +4,6 @@ import { MovieResult } from "../../types/movieTypes";
 import instance from "../../axios";
 import requests from "../../requests";
 import styled from "styled-components";
-import * as url from "url";
 
 const StyledTitle = styled.h1`
   color: white;
