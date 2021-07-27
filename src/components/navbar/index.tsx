@@ -67,26 +67,30 @@ const StyledProfile = styled.img`
   cursor: pointer;
 `;
 
-const Navbar: React.FC = () => {
+const StyledNavbar = styled.div`
+  width: 100%;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 4.5rem;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1));
+  padding-left: 4rem;
+  padding-right: 4rem;
+  z-index: 20;
+`;
+
+interface Props {
+  search: string;
+  handleChangeSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+const Navbar: React.FC<Props> = ({ search, handleChangeSearch }) => {
   const [profile, setProfile] = useState<string>("");
   const [isOpenSearch, setIsOpenSearch] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [show, setShow] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
-
-  const StyledNavbar = styled.div`
-    width: 100%;
-    position: fixed;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 4.5rem;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1));
-    padding-left: 4rem;
-    padding-right: 4rem;
-    z-index: 20;
-    ${() => show && `background: #111;`}
-  `;
 
   const getProfilePhoto = () => {
     let localProfile = localStorage.getItem("user");
@@ -102,7 +106,7 @@ const Navbar: React.FC = () => {
 
   const focusSearch = () => {
     if (inputRef.current !== null && isOpenSearch) {
-      inputRef.current.focus();
+      return inputRef.current.focus();
     }
   };
 
@@ -120,12 +124,13 @@ const Navbar: React.FC = () => {
 
   useEffect(() => {
     getProfilePhoto();
-    focusSearch();
     changeScrollColor();
-  }, []);
+    focusSearch();
+  }, [isOpenSearch]);
 
   return (
-    <StyledNavbar>
+    // @ts-ignore
+    <StyledNavbar style={show ? { background: "#111" } : { height: "4.5rem" }}>
       <StyledLeftSide>
         <img alt="netflix" src={NetflixLogo} />
         <StyledList>
@@ -141,6 +146,8 @@ const Navbar: React.FC = () => {
           <StyledInput>
             <img alt="search" src={SearchIcon} />
             <input
+              value={search}
+              onChange={handleChangeSearch}
               onBlur={() => setIsOpenSearch(false)}
               ref={inputRef}
               placeholder="Content,Person,Type"

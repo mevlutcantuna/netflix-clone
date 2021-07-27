@@ -3,9 +3,8 @@ import React, { useEffect } from "react";
 import Auth from "./pages/Auth";
 import { Route } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-import Home from "./pages/Home";
-import Search from "./pages/Search";
 import styled from "styled-components";
+import Browser from "./pages/Browser";
 
 const MainStyled = styled.div`
   background: black;
@@ -16,9 +15,7 @@ const App: React.FC = () => {
   const user = localStorage.getItem("user");
 
   useEffect(() => {
-    if (user !== null) {
-      history.push("/browser");
-    } else {
+    if (user === null) {
       history.push("/");
     }
   }, [history, user]);
@@ -26,8 +23,7 @@ const App: React.FC = () => {
   return (
     <MainStyled>
       <Route exact path="/" component={Auth} />
-      <Route exact path="/browser" component={Home} />
-      <Route exact path="/search" component={Search} />
+      <Route exact path="/browser" component={Browser} />
     </MainStyled>
   );
 };

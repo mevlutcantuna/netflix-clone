@@ -1,12 +1,16 @@
 import React from "react";
 
-import Navbar from "../components/navbar";
+import styled from "styled-components";
+
+const StyledMovies = styled.div`
+  padding-top: 3.25rem;
+  min-height: 100vh;
+`;
 
 const Search: React.FC = () => {
   return (
     <>
-      <Navbar />
-      Search
+      <StyledMovies>Mevlüt Can tuna</StyledMovies>
     </>
   );
 };

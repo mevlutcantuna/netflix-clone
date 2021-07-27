@@ -1,6 +1,5 @@
 import React from "react";
 
-import Navbar from "../components/navbar";
 import Video from "../components/home/Video";
 import MovieRow from "../components/home/MovieRow";
 import requests from "../requests";
@@ -8,7 +7,6 @@ import requests from "../requests";
 const Home: React.FC = () => {
   return (
     <>
-      <Navbar />
       <Video />
       <MovieRow
         title="Netflix Originals"

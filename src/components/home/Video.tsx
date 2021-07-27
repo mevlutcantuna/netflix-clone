@@ -4,6 +4,7 @@ import { MovieResult } from "../../types/movieTypes";
 import instance from "../../axios";
 import requests from "../../requests";
 import styled from "styled-components";
+import * as url from "url";
 
 const StyledTitle = styled.h1`
   color: white;
@@ -60,16 +61,30 @@ const StyledBottom = styled.div`
   );
 `;
 
+const StyledMain = styled.div`
+  position: relative;
+  width: 100%;
+  height: 38rem;
+  //background-image: url();
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
 const Video: React.FC = () => {
   const [video, setVideo] = useState<MovieResult>();
+  const imageUrl = "https://image.tmdb.org/t/p/original" + video?.backdrop_path;
 
   const truncate = (str: string, n: number) => {
     return str?.length > n ? str.substr(0, n - 1) + "..." : str;
   };
 
-  const imageUrl = "https://image.tmdb.org/t/p/original" + video?.backdrop_path;
+  const styledNavbarBackground = {
+    backgroundImage: "url(" + imageUrl + ")",
+  };
+
   useEffect(() => {
-    //url must be change
     instance
       .get(requests.fetchNetflixOriginals)
       .then((res) =>
@@ -80,21 +95,9 @@ const Video: React.FC = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  const StyledMain = styled.div`
-    position: relative;
-    width: 100%;
-    height: 38rem;
-    background-image: url(${imageUrl});
-    background-size: cover;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  `;
-
-  console.log(video);
-
+  // @ts-ignore
   return (
-    <StyledMain>
+    <StyledMain style={styledNavbarBackground}>
       <StyledTitle>{video?.original_name}</StyledTitle>
       <StyledButtonsDiv>
         <StyledButton>Play</StyledButton>

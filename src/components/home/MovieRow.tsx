@@ -48,13 +48,13 @@ const baseURL = "https://image.tmdb.org/t/p/original/";
 const MovieRow: React.FC<Props> = ({ title, fetchUrl }) => {
   const [data, setData] = useState<MovieTypes>();
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
-  const [path, setPath] = useState<number>(45);
-  console.log(path);
+  const [id, setId] = useState<number>(520763);
 
   const openModal = (id: number) => {
-    setPath(id);
+    setId(id);
     setIsOpenModal(true);
   };
+
   const closeModal = () => setIsOpenModal(false);
 
   useEffect(() => {
@@ -87,11 +87,7 @@ const MovieRow: React.FC<Props> = ({ title, fetchUrl }) => {
           </div>
         ))}
       </StyledMovies>
-      <TrailerModal
-        path={path}
-        isOpenModal={isOpenModal}
-        closeModal={closeModal}
-      />
+      <TrailerModal id={id} isOpenModal={isOpenModal} closeModal={closeModal} />
     </StyledMain>
   );
 };
