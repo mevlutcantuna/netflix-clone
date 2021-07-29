@@ -78,6 +78,7 @@ const StyledNavbar = styled.div`
   padding-left: 4rem;
   padding-right: 4rem;
   z-index: 20;
+  transition: background-color 1s;
 `;
 
 interface Props {
@@ -138,7 +139,9 @@ const Navbar: React.FC<Props> = ({ search, handleChangeSearch, setSearch }) => {
 
   return (
     // @ts-ignore
-    <StyledNavbar style={show ? { background: "#111" } : { height: "4.5rem" }}>
+    <StyledNavbar
+      style={show ? { backgroundColor: "#111" } : { height: "4.5rem" }}
+    >
       <StyledLeftSide>
         <img alt="netflix" src={NetflixLogo} />
         <StyledList>
