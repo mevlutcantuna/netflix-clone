@@ -2,7 +2,7 @@
 
 ### Demo
 ```
-    https://netflix-clone-mct.web.app/browser
+    https://netflix-clone-mct.web.app
 ```
 
 In this project,I tried to make a Netflix Clone project.I want to  mention some features of the project.Whe you register to the project,your informations is keeping in firebase-firestore and I got all data from tmdb api.
